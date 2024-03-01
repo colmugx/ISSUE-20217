@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using EventKit;
 using ObjCRuntime;
 
 namespace ISSUE_20217;
@@ -15,6 +17,15 @@ public partial class ViewController : NSViewController
         base.ViewDidLoad();
 
         // Do any additional setup after loading the view.
+        var eventStore = new EKEventStore();
+        
+        eventStore.RequestFullAccessToReminders((access, error) =>
+        {
+            if (access)
+            {
+                Debug.Print("Access");
+            }
+        });
     }
 
     public override NSObject RepresentedObject
